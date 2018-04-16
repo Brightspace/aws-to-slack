@@ -105,7 +105,7 @@ class CloudWatchParser {
 				],
 				aws: {
 					// AWS region
-					// region: "us-east-1",
+					region: process.env.AWS_REGION
 				},
 				timeOffset: 1440,  // Get statistic for last 1440 minutes
 				timePeriod: 60,    // Get statistic for each 60 seconds
