@@ -2,7 +2,6 @@
 
 const BbPromise = require("bluebird"),
 	_ = require("lodash"),
-	Chart = require("./chart"),
 	Slack = require("../../slack");
 
 class CloudWatchParser {
@@ -85,45 +84,7 @@ class CloudWatchParser {
 				}]
 			};
 
-			// Render chart
-			const trigger = message.Trigger;
-			const chart = new Chart({
-				metrics: [
-					{
-						title: `${trigger.MetricName} (${trigger.Statistic}/${trigger.Period}s)`,
-						namespace: trigger.Namespace,
-						metricName: trigger.MetricName,
-						statisticValues: trigger.Statistic,
-						unit: trigger.Unit,
-						color: "af9cf4",
-						thickness: 2,
-						dashed: false,
-						// Any property other that listed above will be added to Dimensions
-						// array. It's different for different metrics namespaces
-						dimensions: trigger.Dimensions
-					}
-				],
-				aws: {
-					// AWS region
-					region: process.env.AWS_REGION
-				},
-				timeOffset: 1440,  // Get statistic for last 1440 minutes
-				timePeriod: 60,    // Get statistic for each 60 seconds
-				chartSamples: 144, // Data points extrapolated on chart
-				width: 400,        // Result image width. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
-				height: 250        // Result image height. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
-			});
-
-			return BbPromise.resolve(chart.getChart())
-			.then(chart => chart.getURL())
-			.then(url => {
-				slackMessage.attachments[0].image_url = url;
-				return slackMessage;
-			})
-			.catch(err => {
-				console.log("Error rendering chart:", err.toString());
-				return slackMessage;
-			});
+			return slackMessage;
 		});
 	}
 }

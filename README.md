@@ -14,8 +14,7 @@ Forward AWS CloudWatch Alarms and other notifications from Amazon SNS to Slack.
 ## What is it?
 _AWS-to-Slack_ is a Lambda function written in Node.js that forwards alarms and
 notifications to a dedicated [Slack](https://slack.com) channel. It self-hosted
-in your own AWS environment and doesn't have any 3rd party dependencies other
-than the Google Charts API for rendering CloudWatch metrics.
+in your own AWS environment and doesn't have any 3rd party dependencies.
 
 Supported notification formats:
 * AWS Health Dashboard 🆕
